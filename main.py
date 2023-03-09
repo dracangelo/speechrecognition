@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from time import ctime
 import webbrowser
+import time 
 
 r = sr.Recognizer()
 
@@ -23,12 +24,22 @@ def respond(voice_data):
         print('autoaispeech')
     if 'what time is it' in voice_data:
         print(ctime())
-    if 'search' in voice_data:
+    if 'find' in voice_data:
         search = record_speech("what do you want to search for?")
         url = 'https://www.google.com/search?q=' + search
         webbrowser.get().open(url)
         print('here is what I found ' + search)
+    if 'find location' in voice_data:
+        location = record_speech("what is the location of?")
+        url = 'https://www.google.com/maps/place/' + location + '/&amp;'
+        webbrowser.get().open(url)
+        print('here is what I found about ' + location)
+    if 'exit' in voice_data:
+        exit()
+        
 
+time.sleep(1)
 print("Listening...")
-voice_data = record_speech()
-respond(voice_data)
+while 1:
+    voice_data = record_speech()
+    respond(voice_data)
